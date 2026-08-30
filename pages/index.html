@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OSINT Elite v3</title><link rel="stylesheet" href="assets/style.css"></head>
+<body>
+<div class="app">
+<header><div><div class="brand">OSINT<span> ELITE</span></div><small>PUBLIC-SOURCE RESEARCH · V3</small></div><button id="theme">◐</button></header>
+<section class="card hero"><div class="eyebrow">TARGET ANALYZER</div><div class="bar"><input id="target" placeholder="@username / domain / email / IP / keyword"><select id="type"><option value="auto">Auto</option><option value="username">Username</option><option value="email">Email</option><option value="domain">Domain</option><option value="ip">IP</option><option value="url">URL</option><option value="phone">Phone</option><option value="plate">Plate</option><option value="keyword">Keyword</option></select><button id="analyze">ANALYZE</button></div><div id="state">Ready.</div></section>
+<section id="stats" class="stats"></section>
+<section class="card"><div class="title">AGGREGATED JSON RESULTS</div><div id="results"><div class="empty">Run an analysis to receive JSON from your Worker.</div></div></section>
+<section class="card"><div class="title">RAW JSON</div><pre id="raw">{}</pre></section>
+<section class="card"><div class="title">LOCAL NOTES</div><textarea id="notes" placeholder="Research notes..."></textarea><button id="save">SAVE LOCALLY</button></section>
+<footer>OSINT Elite v3 · GitHub Pages + Cloudflare Worker</footer>
+</div><script src="assets/app.js"></script></body></html>
