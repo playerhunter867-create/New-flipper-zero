@@ -1,0 +1,112 @@
+name: Unpack OSINT Elite v3
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "*.zip"
+      - "**/*.zip"
+
+permissions:
+  contents: write
+
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Find ZIP
+        id: find_zip
+        shell: bash
+        run: |
+          ZIP=$(find . -maxdepth 2 -type f -iname "*.zip" \
+            ! -path "./.git/*" \
+            | head -n 1)
+
+          if [ -z "$ZIP" ]; then
+            echo "ERROR: ZIP file not found."
+            exit 1
+          fi
+
+          echo "Found ZIP: $ZIP"
+          echo "zip=$ZIP" >> "$GITHUB_OUTPUT"
+
+      - name: Prepare temporary directory
+        run: |
+          rm -rf .osint-extract
+          mkdir -p .osint-extract
+
+      - name: Extract ZIP
+        run: |
+          unzip -o "${{ steps.find_zip.outputs.zip }}" -d .osint-extract
+
+      - name: Detect project root
+        shell: bash
+        run: |
+          echo "Extracted files:"
+          find .osint-extract -maxdepth 3 -type f | sort
+
+      - name: Install GitHub Pages frontend
+        shell: bash
+        run: |
+          if [ -d ".osint-extract/pages" ]; then
+            echo "Installing pages/ into repository root..."
+
+            cp -a .osint-extract/pages/. .
+
+          else
+            echo "ERROR: pages/ directory was not found in ZIP."
+            exit 1
+          fi
+
+      - name: Install Worker backend
+        shell: bash
+        run: |
+          if [ -d ".osint-extract/worker" ]; then
+            rm -rf worker
+            cp -a .osint-extract/worker ./worker
+          fi
+
+      - name: Install API config
+        shell: bash
+        run: |
+          if [ -d ".osint-extract/config" ]; then
+            rm -rf config
+            cp -a .osint-extract/config ./config
+          fi
+
+      - name: Remove ZIP and temporary files
+        shell: bash
+        run: |
+          ZIP="${{ steps.find_zip.outputs.zip }}"
+
+          rm -f "$ZIP"
+          rm -rf .osint-extract
+
+      - name: Show final structure
+        run: |
+          echo "===== FINAL PROJECT ====="
+          find . -maxdepth 3 -type f \
+            ! -path "./.git/*" \
+            | sort
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Deploy OSINT Elite v3 from ZIP"
+          git push
