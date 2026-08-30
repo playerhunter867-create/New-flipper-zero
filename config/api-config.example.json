@@ -1,0 +1,15 @@
+{
+  "worker_url": "https://YOUR-WORKER.workers.dev",
+  "frontend_origin": "https://YOUR-USERNAME.github.io",
+  "providers": {
+    "web_search": {
+      "enabled": false,
+      "secret_name": "WEB_SEARCH_API_KEY",
+      "note": "Add an approved search API adapter in worker/src/index.js."
+    },
+    "dns": {
+      "enabled": false,
+      "note": "Add an approved DNS/RDAP adapter if needed."
+    }
+  }
+}
