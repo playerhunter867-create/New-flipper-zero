@@ -1,0 +1,34 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.chaquo.python' version '14.0.2'   // <-- ДОБАВИТЬ
+}
+
+android {
+    // ... остальное как обычно ...
+    
+    defaultConfig {
+        // ... 
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+        python {
+            pip {
+                install "requests"
+                install "beautifulsoup4"
+                install "lxml"
+                install "fake-useragent"
+            }
+        }
+    }
+}
+
+// После android блока:
+python {
+    pip {
+        install "requests"
+        install "beautifulsoup4"
+        install "lxml"
+        install "fake-useragent"
+    }
+}
