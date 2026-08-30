@@ -1,0 +1,10 @@
+name = "osint-elite-v3-api"
+main = "src/index.js"
+compatibility_date = "2026-08-30"
+
+[observability]
+enabled = true
+
+# Add only secret NAMES here. Values must be configured in Cloudflare.
+[secrets]
+required = []
