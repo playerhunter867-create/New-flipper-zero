@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OSINT Elite</title><link rel="stylesheet" href="assets/style.css"></head>
+<body>
+<div class="shell">
+<header><div><b>OSINT<span> ELITE</span></b><small>PUBLIC-SOURCE RESEARCH</small></div><button id="theme">◐</button></header>
+<section class="search card"><div class="label">TARGET</div><div class="bar"><input id="target" placeholder="+49123456789 / @username / example.com / IP / keyword"><select id="type"><option value="auto">Auto detect</option><option>phone</option><option>username</option><option>email</option><option>domain</option><option>ip</option><option>url</option><option>plate</option><option>keyword</option></select><button id="analyze">ANALYZE</button></div><p id="notice">Searches below use public web sources. This site cannot access private accounts or closed databases.</p></section>
+<section id="summary" class="grid"></section>
+<section class="card"><div class="title">PUBLIC WEB SEARCH</div><div id="results" class="results"><div class="empty">Enter a target and press ANALYZE.</div></div></section>
+<section class="grid two"><div class="card"><div class="title">LOCAL NOTES</div><textarea id="notes" placeholder="Research notes..."></textarea><button id="save">SAVE</button><div id="saved"></div></div>
+<div class="card"><div class="title">ETHICS / SCOPE</div><p>Use only information that is publicly available and lawful to access. Do not use this tool to obtain passwords, private addresses, private account data, or to bypass authentication.</p></div></section>
+<footer>OSINT ELITE · GitHub Pages · client-side</footer>
+</div><script src="assets/app.js"></script></body></html>
